@@ -1,9 +1,18 @@
 generator client {
   provider = "prisma-client-js"
+  engineType = "library" 
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+
+  users     User[]
 }
 
 model User {
@@ -11,11 +20,13 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      Role
-  schoolId  String
   createdAt DateTime @default(now())
 
-  school    School   @relation(fields: [schoolId], references: [id])
+  roleId    String
+  schoolId  String?
+
+  role      Role     @relation(fields: [roleId], references: [id])
+  school    School?  @relation(fields: [schoolId], references: [id])
 }
 
 model School {
@@ -28,11 +39,4 @@ model School {
   users     User[]
 }
 
-enum Role {
-  SUPERADMIN
-  ADMIN
-  ACCOUNTANT
-  TEACHER
-  STAFF
-  STUDENT
-}
+
