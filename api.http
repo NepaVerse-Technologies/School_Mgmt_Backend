@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:5000/api
+
+### login
+
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "superadmin@system.com",
+    "password": "superadmin123"
+}

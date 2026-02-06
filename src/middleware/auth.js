@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-function protect(req, res, next) {
+export function protect(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Not authorized" });
 
@@ -12,6 +12,6 @@ function protect(req, res, next) {
   } catch (error) {
     res.status(401).json({ message: "Token invalid" });
   }
-}
 
-module.exports = { protect };
+  //TODO: role based access control
+}

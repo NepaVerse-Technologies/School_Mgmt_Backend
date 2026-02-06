@@ -12,9 +12,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(errorHandler);
-
 app.use("/api", router);
+
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
